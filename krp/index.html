@@ -1,0 +1,95 @@
+<!doctype>
+<html ng-app="KitchenRadioPlayer">
+  <head ng-controller="IndexController">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css" rel="stylesheet">
+<title>{{title}}</title>
+</head>
+
+  <body ng-controller="IndexController">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
+	{{version}}
+	</a> 
+
+<p class="navbar-text navbar-left">{{current}}</p>
+  </div>
+    <form class="navbar-form navbar-right">
+	<div class="input-group">
+      <input type="text" class="form-control" placeholder="Add URL" ng-model = "url">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="addNewRadio()">Add</button>
+      </span>
+    </form>
+
+   </div>
+  </div>
+</nav>
+
+<div class = "container">
+
+  <div class="col-md-6 col-md-offset-3">
+<div class="panel panel-default">
+<div class="panel-heading">
+ <button id="play" class="btn btn-default" type="submit" ng-click="playN('play', '')">
+	<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+	</button>                                                                                                                                
+          <button id="stop" class="btn btn-default" type="submit" ng-click="playN('stop', '')">
+	<span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+	<button id="volup" class="btn btn-default" type="submit" ng-click="playN('volume', '+10')">
+	 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</button>                                                                                                                                
+         <button id="voldown" class="btn btn-default" type="submit" ng-click="playN('volume', '-10')">
+	 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+	</button>                                                                                                                                
+
+         <button id="voldown" class="btn btn-default" type="submit" ng-click="playN('next', '')">
+	 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	</button>                                                                                                                                
+
+ </div>
+  <div class="panel-body">
+<table class="table table-hover">
+<tr ng-repeat="i in playlist" ng-if="i.title">
+
+	<td>
+<span class="glyphicon glyphicon-music" aria-hidden="true"></span>     		<a href="#" ng-click="playN('play',i.id)">{{i.title}}</a>
+	</td>
+	<td>
+		<a href="#" ng-click="playN('del',i.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	</td>
+</tr>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<footer class="footer">
+<div class=container>
+<p class="text-muted">
+{{volume}} 
+</p>
+</div>
+</footer>
+
+
+
+  <script src="http://192.168.1.235/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.js"></script>
+    <script src="controllers.js"></script>
+  </body>
+
+</html>
