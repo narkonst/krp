@@ -1,12 +1,6 @@
 var app = require('http').createServer();
-//var http = require('http');
-//var express = require('express'),
-//    app = module.exports.app = express();
-//var server = http.createServer(app);
 var bodyParser = require('body-parser');
 var io = require('socket.io')(app);   
-//var io = require('socket.io').listen(server);
-//app.use(bodyParser.json());
 var exec = require('child_process').exec,
   child;
 var  page = {
@@ -55,49 +49,6 @@ function generation_page () {
 
 Repeat(generation_page).every(300, 'ms').start();
 
-//######################################### REST ###################################
-/*
-
-app.get('/state', function (req, res) {
- generation_page();	
- res.status(200).send(page);
-})
-
-
-app.get('/set/:action/:value', function (req, res) {
-// /set/play/track_id
-// /set/volume/value_of_sound
- exec('mpc $act  $arg', {env: {'act': req.params.action, 'arg': req.params.value}});
-	 setTimeout(function () {
-	  res.status(200).send(page);
-//		console.log("2000ms timeout");
-	}, 1500);
-});
-
-
-
-app.post('/list/radio/add', function(req, res){
-//    res.setHeader('Access-Control-Allow-Origin','*');
-//var expression = /https?:\/\/(?:www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*///gi;
-/*
-var regex = new RegExp(expression);
-var url  = req.body.url.match(regex);
-        if (req.body.name === null || req.body.url === null  || req.body.name === undefined || req.body.url === undefined) {
-          res.status(200).send("empty");
-          res.end;
-        }
-        else {
-          if (req.body.url.match(regex) ) {
-            exec('mpc $act  $arg', {env: {'act': "add", 'arg': url}});
-	    exec('mpc $act $arg', {env: {'act': "save, 'arg': playlist"}});	
-	    generation_page();
-	    res.status(200).send('ok');
-          }       
-          else {console.log("not valid url"); res.status(200).send('not valid url');}
-        res.end;
-      }
- });
-*/
 
 //################################################# SOCKET ##########################################
 
@@ -128,11 +79,6 @@ Repeat(pushPage).every(100, 'ms').start();
     });
 
 
-
-
-
-
-
     socket.on('addRadio', function (newradio) {
         console.log(newradio);
 	var expression = /https?:\/\/(?:www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*///gi;
@@ -152,18 +98,6 @@ Repeat(pushPage).every(100, 'ms').start();
       	}	
 	
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
 
