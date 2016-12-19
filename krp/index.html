@@ -25,6 +25,7 @@
       </span>
     </form>
 
+
    </div>
   </div>
 </nav>
@@ -46,10 +47,16 @@
 	 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 	</button>                                                                                                                                
 
+         
+	<button id="voldown" class="btn btn-default" type="submit" ng-click="playN('prev', '')">
+	 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	</button>                                                                                                                                
+
          <button id="voldown" class="btn btn-default" type="submit" ng-click="playN('next', '')">
 	 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 	</button>                                                                                                                                
 
+<p class="navbar-text navbar-right">{{volume}}</p>
  </div>
   <div class="panel-body">
 <table class="table table-hover">
@@ -86,10 +93,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
   <script src="http://192.168.1.235/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.js"></script>
     <script src="controllers.js"></script>
-  </body>
+
+ </body>
 
 </html>

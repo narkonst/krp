@@ -1,0 +1,17 @@
+[Unit]
+Description=sof.js - making your environment variables rad
+Documentation=https://github.com/omskbird/krp
+After=network.target
+
+[Service]
+ExecStart=/home/user/node/node-v7.1.0-linux-armv7l/bin/node /home/user/mpd_pg_socket/sof.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node-sample
+User=user
+Group=user
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
