@@ -1,5 +1,5 @@
 var app = require('http').createServer();
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 var io = require('socket.io')(app);   
 var exec = require('child_process').exec,
   child;
@@ -17,10 +17,10 @@ var Repeat = require('repeat');
 function generation_page () {
 //console.log(page.change);
   exec('mpc current', function(error, stdout, stderr) {
-	if (page.current !== stdout) {
-		page.current = stdout;
+	if (page.current !== stdout.substr(0,100)) {
+		page.current = stdout.substr(0,100);
 		page.change = 1;
-		 console.log("current Changed");
+		 console.log(page.current);
 	}
   });
   exec('mpc volume', function (error, stdout, stderr) {
@@ -35,7 +35,10 @@ function generation_page () {
 	stdout = stdout.split("\n");
 	var listJson = [];
 	for (var i in stdout) {
-		listJson.push({id: parseInt(i)+1, title: stdout[i]});
+		if (stdout[i].length > 100) {
+				listJson.push({id: parseInt(i)+1, title: stdout[i].substring(0, stdout[i].indexOf(':'))}); 
+		}
+	 	else {	listJson.push({id: parseInt(i)+1, title: stdout[i]}); }
 	}
 
 	if (page.playlist !== listJson) { 
@@ -47,7 +50,7 @@ function generation_page () {
 
 }
 
-Repeat(generation_page).every(300, 'ms').start();
+Repeat(generation_page).every(1000, 'ms').start();
 
 
 //################################################# SOCKET ##########################################
@@ -64,7 +67,7 @@ function pushPage() {
         }
 }
 
-Repeat(pushPage).every(100, 'ms').start();
+Repeat(pushPage).every(500, 'ms').start();
 
 	socket.on('control', function (a) {
 		console.log(a);
