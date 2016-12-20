@@ -8,6 +8,7 @@ var  page = {
     volume:"",
     playlist:"",
     ls:"",
+    files:"",
     num:"",
     change:""
   };
@@ -52,6 +53,7 @@ function generation_page () {
 
 
 
+
   exec('mpc lsplaylists', function(error, stdout, stderr) {
 	stdout = stdout.split("\n");
 	var listJson = [];
@@ -68,9 +70,36 @@ function generation_page () {
 });
 
 
+
+
+
+
+  exec('mpc listall', function(error, stdout, stderr) {
+	stdout = stdout.split("\n");
+	var listJson = [];
+	for (var i in stdout) {
+		if (stdout[i].length > 40) {
+				listJson.push({id: parseInt(i)+1, title: stdout[i].substring(0, stdout[i].indexOf(':'))}); 
+		}
+	 	else {	listJson.push({id: parseInt(i)+1, title: stdout[i]}); }
+	}
+
+	if (page.files !== listJson) { 
+		 page.files = listJson;
+}
+});
+
+
+
+
+
+
+
+
+
 }
 
-Repeat(generation_page).every(1000, 'ms').start();
+Repeat(generation_page).every(2000, 'ms').start();
 
 
 //################################################# SOCKET ##########################################

@@ -1,7 +1,6 @@
 var app = angular.module('KitchenRadioPlayer', ['ngRoute']);
 var version = "KitchenRadioPlayer v.0.0.2"
 var server="192.168.1.235"
-//var server="62.182.198.11"
 var port=80
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -48,7 +47,7 @@ app.controller('IndexController', function($scope, socket) {
       $scope.title = $scope.current = data.current.substr(0,100);
       $scope.volume = data.volume;
       $scope.ls = data.ls;
-	console.log(data.ls);
+      $scope.files = data.files;
       $scope.playlist = data.playlist;
       if (data.current === ""){ $scope.title = version}
     });
