@@ -7,10 +7,11 @@ var  page = {
     current: "",
     volume:"",
     playlist:"",
+    ls:"",
     num:"",
     change:""
   };
-var playlist = "nodepl2";
+var playlist = "list";
 
 var Repeat = require('repeat');
 
@@ -23,6 +24,7 @@ function generation_page () {
 		 console.log(page.current);
 	}
   });
+
   exec('mpc volume', function (error, stdout, stderr) {
    if (page.volume !== stdout) {
 		 page.volume = stdout;
@@ -47,6 +49,24 @@ function generation_page () {
 //		 page.change = 1;
 	}
   });
+
+
+
+  exec('mpc lsplaylists', function(error, stdout, stderr) {
+	stdout = stdout.split("\n");
+	var listJson = [];
+	for (var i in stdout) {
+		if (stdout[i].length > 100) {
+				listJson.push({id: parseInt(i)+1, title: stdout[i].substring(0, stdout[i].indexOf(':'))}); 
+		}
+	 	else {	listJson.push({id: parseInt(i)+1, title: stdout[i]}); }
+	}
+
+	if (page.ls !== listJson) { 
+		 page.ls = listJson;
+}
+});
+
 
 }
 

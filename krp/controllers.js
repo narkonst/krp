@@ -36,11 +36,19 @@ app.controller('IndexController', function($scope, socket) {
     socket.emit('control', action);
   };
 
+  $scope.playF = function(a, b) {
+	var action = {"action": a, "arg": b};
+    console.log(action);
+    socket.emit('control', 'clear');
+    socket.emit('control', action);
+  };
 
   socket.on('GlobalControl', function(data) {
     $scope.$apply(function () {
-      $scope.title = $scope.current = data.current;
+      $scope.title = $scope.current = data.current.substr(0,100);
       $scope.volume = data.volume;
+      $scope.ls = data.ls;
+	console.log(data.ls);
       $scope.playlist = data.playlist;
       if (data.current === ""){ $scope.title = version}
     });
