@@ -47,7 +47,7 @@ function generation_page () {
 	if (page.playlist !== listJson) { 
 		 page.playlist = listJson;
 //		 console.log("playl Changed");
-//		 page.change = 1;
+		 page.change = 1;
 	}
   });
 
