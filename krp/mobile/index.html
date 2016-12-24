@@ -1,94 +1,136 @@
 <!doctype html>
-<html>
-    <head>
-        <title>test</title>
+<html ng-app="KitchenRadioPlayer">
+  <head ng-controller="IndexController">
+        <title>{{title}}</title>
     </head>
-    <body>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="http://192.168.1.235:3000/socket.io/socket.io.js"></script>
-        <script type="text/javascript">
-            var socket = io('ws://192.168.1.235:3000/');
+  <body ng-controller="IndexController">
+	<link href="css/ratchet.css" rel="stylesheet">
+        <script src="js/ratchet.min.js"></script>
 
-            $(document).off('click', '#button').on('click', '#button', function (e) {
-                console.log('click');
-                socket.emit('changeBgColor', {color: 'red'});
-                e.preventDefault();
-            });
-
-            $(document).off('click', '#button2').on('click', '#button2', function (e) {
-                console.log('click');
-                socket.emit('changeBgColor', {color: 'blue'});
-                e.preventDefault();
-            });
-
-            $(document).off('click', '#play').on('click', '#play', function (e) {
-                console.log('click');
-                socket.emit('control', {action: 'play', arg:''});
-                e.preventDefault();
-            });
-
-            $(document).off('click', '#stop').on('click', '#stop', function (e) {
-                console.log('click');
-                socket.emit('control', {action: 'stop', arg:''});
-                e.preventDefault();
-            });
-
-
-            $(document).off('click', '#volup').on('click', '#volup', function (e) {
-                console.log('click');
-                socket.emit('control', {action: 'volume', arg:'+10'});
-                e.preventDefault();
-            });
-
-
-            $(document).off('click', '#voldown').on('click', '#voldown', function (e) {
-                console.log('click');
-                socket.emit('control', {action: 'volume', arg:'-10'});
-                e.preventDefault();
-            });
-
-
-            socket.on('GlobalControl', function (action) {
-                console.log(action.playlist[0].title);
-//                $('body').css('background', color);
-		$('#text').html(action.current);	
-		$('#vol').html(action.volume);	
-		jQuery.each( action.playlist, function( i, value ) {
-			console.log(action.playlist[i].title);
-  $( "#playlist" ).html( document.createTextNode( " - " + action.playlist[i].title ) );
-});
+  <script src="http://192.168.1.3/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.js"></script>
+    <script src="http://192.168.1.3/radio/js/hotkeys.js"></script>
+    <script src="http://192.168.1.3/radio/js/controllers.js"></script>
 
 
 
-//		$('#playlist').html(
-//			$.each(action.playlist, function(id, title){
-//				console.log(id: title.title);
-//		})
-//action.playlist[0].title
+
+ <header class="bar bar-nav">
+   <h1 class="title" id="text">{{title}}</h1>
+
+<span class="badge pull-right">{{volume}}</span>
+
+   
+ </header>
+    <div class="content">
 
 
-//);
-	});
-
-            socket.on('changeBgColorEveryWhere', function (color) {
-                console.log(color);
-                $('body').css('background', color);
-//		$('#textDiv').html(color);	
-           });
-
-        </script>
 
 
-<h1>MOBILE!!!!!!!!!!!!!!!!!</h1>
-<br>
-        <button id="button">RED</button>
-        <button id="button2">Blue</button>
-        <button id="play">play</button>
-        <button id="stop">stop</button>
-        <button id="volup">+</button>
-        <button id="voldown">-</button>
-<div id=text></div>
-<div id=vol></div>
-<div id=playlist></div>
+
+<div class="segmented-control">
+  <a class="control-item active" href="#item1mobile">
+    Control
+  </a>
+  <a class="control-item" href="#item2mobile">
+    Playlists
+  </a>
+  <a class="control-item" href="#item3mobile">
+    Files
+  </a>
+</div>
+
+
+
+<div class="card">
+<div id="item1mobile" class="control-content active">
+
+
+<ul class="table-view">
+  <li class="table-view-divider">Current Playlist</li>
+  <li class="table-view-cell" ng-repeat="i in playlist" ng-if="i.title">
+	<a href="#" ng-click="playN('play',i.id)">{{i.title}}</a>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+</div>
+
+<div id="item2mobile" class="control-content">
+
+<div class="card">
+<button class="btn btn-primary btn-block btn-outlined" ng-repeat="i in ls" ng-if="i.title" ng-click="playF('load', i.title)"> 
+	{{i.title}}
+</button>
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div id="item3mobile" class="control-content">
+
+
+<div class="card">
+<div class="card">
+<button class="btn btn-primary btn-block btn-outlined" ng-repeat="i in files" ng-if="i.title" ng-click="playF('load', i.title)"> 
+	{{i.title}}
+</button>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<nav class="bar bar-tab">
+  <a class="tab-item" href="#" ng-click="playN('play', '')">
+    <span class="icon icon-play"></span>
+    <span class="tab-label">Play</span>
+  </a>
+  <a class="tab-item" href="#" ng-click="playN('stop', '')">
+    <span class="icon icon-stop"></span>
+    <span class="tab-label">Stop</span>
+  </a>
+  <a class="tab-item" href="#" ng-click="playN('volume', '+10')">
+    <span class="icon icon-sound"></span>
+    <span class="tab-label">Up</span>
+  </a>
+  <a class="tab-item" href="#" ng-click="playN('volume', '-10')">
+    <span class="icon icon-sound3"></span>
+    <span class="tab-label">Down</span>
+  </a>
+  <a class="tab-item" href="#" ng-click="playN('prev', '')">
+    <span class="icon icon-back"></span>
+    <span class="tab-label">Prev</span>
+  </a>
+  <a class="tab-item" href="#" ng-click="playN('next', '')">
+    <span class="icon icon-forward"></span>
+    <span class="tab-label">Next</span>
+  </a>
+  <a class="tab-item" href="#" ng-click="playN('clear', '')">
+    <span class="icon icon-trash"></span>
+    <span class="tab-label">Clear</span>
+  </a>
+</nav>
+
+
+
     </body>
 </html>
