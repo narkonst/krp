@@ -34,9 +34,13 @@
 <div class="col-md-3">
  <div class="list-group">
   <a href="#" class="list-group-item disabled">
+	<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
    Playlists:
   </a>
-	   <a href="#" ng-repeat="i in ls" ng-if="i.title"  class="list-group-item" ng-click="playF('load', i.title)">{{i.title}}</a>
+	   <a href="#" ng-repeat="i in ls" ng-if="i.title"  class="list-group-item" ng-click="playF('load', i.title)">
+
+<span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+{{i.title}}</a>
  </div>
 </div>
 
@@ -46,7 +50,7 @@
 
 <div class="col-md-6">
 <div class="panel panel-default">
-<div class="panel-heading">
+<div class="panel-heading ">
  <button id="play" class="btn btn-default" type="submit" ng-click="playN('play', '')">
 	<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
 	</button>                                                                                                                                
@@ -98,9 +102,12 @@
 <div class="col-md-3">
  <div class="list-group">
   <a href="#" class="list-group-item disabled">
-   FILELIST:
+<span class="glyphicon glyphicon-file" aria-hidden="true"></span>     FILELIST:
   </a>
-	   <a href="#" ng-repeat="i in files" ng-if="i.title"  class="list-group-item" ng-click="playF('add', i.title)">{{i.title}}</a>
+	   <a href="#" ng-repeat="i in files" ng-if="i.title"  class="list-group-item" ng-click="playF('add', i.title)">
+		<span class="glyphicon glyphicon-music" aria-hidden="true"></span>   
+		{{i.title}}
+	   </a>
  </div>
 </div>
 

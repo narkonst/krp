@@ -4,100 +4,50 @@
         <title>{{title}}</title>
     </head>
   <body ng-controller="IndexController">
-	<link href="css/ratchet.css" rel="stylesheet">
-        <script src="js/ratchet.min.js"></script>
-
-  <script src="http://192.168.1.3/socket.io/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.js"></script>
-    <script src="http://192.168.1.3/radio/js/hotkeys.js"></script>
-    <script src="http://192.168.1.3/radio/js/controllers.js"></script>
-
-
-
-
+	    <link href="css/ratchet.css" rel="stylesheet">
+            <script src="js/ratchet.min.js"></script>
+	    <script src="http://192.168.1.3/socket.io/socket.io.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.js"></script>
+	    <script src="http://192.168.1.3/radio/js/hotkeys.js"></script>
+	    <script src="http://192.168.1.3/radio/js/controllers.js"></script>
  <header class="bar bar-nav">
-   <h1 class="title" id="text">{{title}}</h1>
-
-<span class="badge pull-right">{{volume}}</span>
-
-   
+  <h1 class="title" id="text">{{title}}</h1>
+  <span class="badge pull-right">{{volume}}</span>
  </header>
+
     <div class="content">
-
-
-
-
-
-<div class="segmented-control">
-  <a class="control-item active" href="#item1mobile">
-    Control
-  </a>
-  <a class="control-item" href="#item2mobile">
-    Playlists
-  </a>
-  <a class="control-item" href="#item3mobile">
-    Files
-  </a>
-</div>
-
-
-
-<div class="card">
-<div id="item1mobile" class="control-content active">
-
-
-<ul class="table-view">
-  <li class="table-view-divider">Current Playlist</li>
-  <li class="table-view-cell" ng-repeat="i in playlist" ng-if="i.title">
-	<a href="#" ng-click="playN('play',i.id)">{{i.title}}</a>
-  </li>
-</ul>
-
-
-
-
-
-
-
-
-</div>
-
-<div id="item2mobile" class="control-content">
-
-<div class="card">
-<button class="btn btn-primary btn-block btn-outlined" ng-repeat="i in ls" ng-if="i.title" ng-click="playF('load', i.title)"> 
-	{{i.title}}
-</button>
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div id="item3mobile" class="control-content">
-
-
-<div class="card">
-<div class="card">
-<button class="btn btn-primary btn-block btn-outlined" ng-repeat="i in files" ng-if="i.title" ng-click="playF('add', i.title)"> 
-	{{i.title}}
-</button>
+<div class="slider" id="mySlider">
+  <div class="slide-group">
+    <div class="slide">
+		<ul class="table-view">
+		  <li class="table-view-divider">
+			<span class="icon icon-bars"></span> Tracklist:
+		  </li>
+		  <li class="table-view-cell" ng-repeat="i in playlist" ng-if="i.title">
+			</span><a href="#" class="navigate-right" ng-click="playN('play',i.id)">{{i.title}}</a>
+		  </li>
+		  </ul>
+    </div>
+    <div class="slide">
+		<ul class="table-view">
+		  <li class="table-view-divider"><span class="icon icon-list"></span> Playlists</li>
+		  <li class="table-view-cell" ng-repeat="i in ls" ng-if="i.title">
+			<a hreh="#" class="navigate-right" ng-click="playF('load', i.title)">{{i.title}}</a>
+		  </li>
+		  </ul>
+    </div>
+    <div class="slide">
+		<ul class="table-view">
+		  <li class="table-view-divider"><span class="icon icon-check"></span> Files</li>
+		  <li class="table-view-cell" ng-repeat="i in files" ng-if="i.title">
+			<a href="#" class="navigate-right" ng-click="playF('add', i.title)">{{i.title}}</a>
+		  </li>
+		  </ul>
+    </div>
+  </div>
 </div>
 </div>
-</div>
-</div>
-
-
 
 <nav class="bar bar-tab">
   <a class="tab-item" href="#" ng-click="playN('play', '')">

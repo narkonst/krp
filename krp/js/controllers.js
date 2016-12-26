@@ -87,7 +87,12 @@ app.controller('IndexController', function($scope, socket, hotkeys) {
     .add({
       combo: 'space',
       callback: function() {
-	    $scope.playN('stop', '');
+	    if ($scope.current.length >1){
+		    $scope.playN('stop', '');
+	    }
+	    else {
+		$scope.playN('play', '');
+		}
 	}})
 
 
